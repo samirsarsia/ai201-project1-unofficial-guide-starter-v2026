@@ -377,12 +377,13 @@ separate `Source:` line, and the gate refused 5/5 out-of-corpus questions.
 
      Milestone 4. -->
 
-Yes. The improvement made citation formatting consistent in all 15 recorded
-answers without changing the measured retrieval or gate results: criteria 1,
-2, and 5 stayed at 5/5, criterion 3 stayed at 5/5, and criterion 4 remains
-5/5 because the chunker was unchanged. It improved observability and made the
-source requirement easier to check, although it did not increase the already
-passing criterion counts.
+Yes. I reran the full evaluation with three uncached runs for each of the five
+questions, producing 15 new model answers. The improvement made citation
+formatting consistent in all 15 recorded answers without changing the measured
+retrieval or gate results: criteria 1, 2, and 5 stayed at 5/5, criterion 3
+stayed at 5/5, and criterion 4 remains 5/5 because the chunker was unchanged.
+It improved observability and made the source requirement easier to check,
+although it did not increase the already passing criterion counts.
 
 ## What's Still Broken
 
