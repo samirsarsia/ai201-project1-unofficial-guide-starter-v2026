@@ -334,7 +334,9 @@ generation stage: the baseline answered all 15 model calls correctly and named
 valid sources, but its citation formatting varied between `Source:`,
 `(source:)`, and `(from ...)`. The original targets remain unchanged because
 they were measurable and met. The next stricter check I would use is that
-every generated answer ends with one consistent `Source:` line.
+Criterion 2 should require all 5 of 5 answers to end with one consistent
+`Source: filename.txt` line, rather than only requiring a source name somewhere
+in the answer.
 
 ## The Improvement
 
