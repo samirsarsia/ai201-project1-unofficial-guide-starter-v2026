@@ -302,11 +302,11 @@ the documents containing those facts. This evidence was produced by
 
 | # | Criterion | Verdict | How I decided |
 |---|---|---|---|
-| 1 |  |  |  |
-| 2 |  |  |  |
-| 3 |  |  |  |
-| 4 |  |  |  |
-| 5 |  |  |  |
+| 1 | Retrieved chunks contain the answer | MET | All five test questions had the expected answer in the retrieved context in all three runs, so each run reached 5/5, exceeding the target of 4/5. |
+| 2 | Every answer names a source | MET | Every one of the 15 generated answers named at least one source document, so all three runs reached 5/5 against the target of 5/5. |
+| 3 | The relevance gate stops out-of-corpus questions | MET | The deterministic gate refused all five out-of-corpus questions, 5/5, which meets the target of at least 4/5; the same result correctly appears in all three columns. |
+| 4 | Sampled chunks preserve a complete post or paragraph | MET | All five sampled chunks preserved complete posts or paragraphs without a sentence being cut at either end, exceeding the target of 4/5. |
+| 5 | Named source contains the supporting fact | MET | The named sources for all five answers contained the supporting facts, giving 5/5 in each run against the target of 4/5. |
 
 ## Diagnoses
 
