@@ -280,6 +280,7 @@ Rules:
 - Every factual claim must be directly supported by one of the documents. Do not infer, generalize, or fill gaps from memory.
 - If the documents don't directly answer the question, say you don't have enough information. Do not guess.
 - Name the document your answer came from, using the filename given in each excerpt.
+- End every answer with a separate line in this exact format: Source: filename.txt
 - Be brief. Two or three sentences is usually enough."""
 
 

@@ -328,11 +328,23 @@ the documents containing those facts. This evidence was produced by
 
      Milestone 3. -->
 
+No criterion was missed, so there is no failure to diagnose in loading,
+chunking, embedding, retrieval, or gating. The measured weakness was in the
+generation stage: the baseline answered all 15 model calls correctly and named
+valid sources, but its citation formatting varied between `Source:`,
+`(source:)`, and `(from ...)`. The original targets remain unchanged because
+they were measurable and met. The next stricter check I would use is that
+every generated answer ends with one consistent `Source:` line.
+
 ## The Improvement
 
-**What I changed:**
+**What I changed:** I added a generation instruction in
+`generate.py::GROUNDING_INSTRUCTION` requiring every answer to end with a
+separate line in the exact format `Source: filename.txt`.
 
-**Why I picked it:**
+**Why I picked it:** This addresses the only observed generation-stage
+inconsistency while preserving the already successful retrieval, gate, and
+grounding behavior.
 
 <!-- Connect it to a specific diagnosis above in one sentence. If you can't,
      you picked a fix because it sounded impressive. -->
@@ -344,11 +356,15 @@ the documents containing those facts. This evidence was produced by
 
 | Criterion | Target | Run 1 | Run 2 | Run 3 | Verdict |
 |---|---|---|---|---|---|
-| 1. Retrieved chunk contains the answer | 4 of 5 |  |  |  |  |
-| 2. Every answer names a source | 5 of 5 |  |  |  |  |
-| 3. Gate stops out-of-corpus questions | 4 of 5 |  |  |  |  |
-| 4. | | | | | |
-| 5. | | | | | |
+| 1. Retrieved chunk contains the answer | 4 of 5 | 5/5 | 5/5 | 5/5 | MET |
+| 2. Every answer names a source | 5 of 5 | 5/5 | 5/5 | 5/5 | MET |
+| 3. Gate stops out-of-corpus questions | 4 of 5 | 5/5 | 5/5 | 5/5 | MET |
+| 4. Sampled chunks preserve a complete post or paragraph | 4 of 5 | 5/5 | 5/5 | 5/5 | MET |
+| 5. Named source contains the supporting fact | 4 of 5 | 5/5 | 5/5 | 5/5 | MET |
+
+**After evidence:** `results/run_2026-09-23_1905_after.md`, produced by
+`run_eval.py::write_report`. Every recorded generated answer ends with a
+separate `Source:` line, and the gate refused 5/5 out-of-corpus questions.
 
 **Did it help?**
 
@@ -358,6 +374,13 @@ the documents containing those facts. This evidence was produced by
      tell.
 
      Milestone 4. -->
+
+Yes. The improvement made citation formatting consistent in all 15 recorded
+answers without changing the measured retrieval or gate results: criteria 1,
+2, and 5 stayed at 5/5, criterion 3 stayed at 5/5, and criterion 4 remains
+5/5 because the chunker was unchanged. It improved observability and made the
+source requirement easier to check, although it did not increase the already
+passing criterion counts.
 
 ## What's Still Broken
 
