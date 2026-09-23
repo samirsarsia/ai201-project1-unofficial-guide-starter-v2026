@@ -21,11 +21,12 @@
 
 ## What This Does
 
-<!-- Three or four sentences. Which corpus you picked, and the kinds of
-     questions your system answers. Write it for someone who has never seen
-     this repo.
-
-     Milestone 5. -->
+This system answers practical university-life questions using the `campus_life`
+corpus, a collection of short posts about courses, housing, dining, deadlines,
+and campus services. It retrieves the most relevant posts, refuses questions
+whose best matches are too distant, and asks the model to answer only from the
+retrieved documents. Answers name the source file so a reader can check the
+supporting post.
 
 ## Chunking Strategy
 
@@ -173,9 +174,20 @@ would allow the closest unrelated question through.
 
      Milestone 5. -->
 
-**1.**
+**1.** I asked an AI coding assistant to inspect the starter's chunk summary and
+the short `campus_life` documents, then pressure-test whether fixed 800-character
+windows made sense. It pointed out that the starter produced one chunk per short
+post and suggested keeping normal posts intact while splitting longer text at
+sentence boundaries. I implemented that as `chunker.py::split_documents` with a
+600-character limit and verified that the rebuilt index still produced 88
+self-contained chunks.
 
-**2.**
+**2.** I asked the assistant to compare the best retrieval distances for all five
+in-scope questions with the five out-of-scope questions. The measured groups were
+0.132763–0.316142 and 0.824593–0.934011, so I set the cutoff to 0.55 rather than
+leaving the starter's 0.6 unexplained. I also tightened the grounding instruction
+to require every factual claim to be directly supported by a retrieved document,
+not inferred from general knowledge.
 
 <!-- ── Stretch features ─────────────────────────────────────────────────────
      Doing one? Say so here BEFORE you start. A feature this README never
