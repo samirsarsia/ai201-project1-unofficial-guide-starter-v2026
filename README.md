@@ -216,15 +216,78 @@ not inferred from general knowledge.
 
 | Criterion | Target | Run 1 | Run 2 | Run 3 | Verdict |
 |---|---|---|---|---|---|
-| 1. Retrieved chunk contains the answer | 4 of 5 |  |  |  |  |
-| 2. Every answer names a source | 5 of 5 |  |  |  |  |
-| 3. Gate stops out-of-corpus questions | 4 of 5 |  |  |  |  |
-| 4. | | | | | |
-| 5. | | | | | |
+| 1. Retrieved chunk contains the answer | 4 of 5 | 5/5 | 5/5 | 5/5 | MET |
+| 2. Every answer names a source | 5 of 5 | 5/5 | 5/5 | 5/5 | MET |
+| 3. Gate stops out-of-corpus questions | 4 of 5 | 5/5 | 5/5 | 5/5 | MET |
+| 4. Sampled chunks preserve a complete post or paragraph | 4 of 5 | 5/5 | 5/5 | 5/5 | MET |
+| 5. Named source contains the supporting fact | 4 of 5 | 5/5 | 5/5 | 5/5 | MET |
 
 <!-- Underneath, paste the REAL output for each criterion from one of your
      runs — the actual text your system produced, not a description of it.
      Name the file and function that produced it. -->
+
+**Evidence file:** `results/run_2026-09-23_1853_before.md`, produced by
+`run_eval.py::write_report`.
+
+**Criterion 1 — retrieved chunks contain the answer.** The generated answers
+below contain the expected facts, and the report lists the corresponding source
+documents among the retrieved results. The answers were produced by
+`generate.py::answer_from_chunks`:
+
+```
+For juniors and seniors, the housing lottery is ordered by accumulated credit hours first, and only tie-broken randomly.
+
+Source: admin_housing_lottery.txt
+
+You can drop a course through the end of the second week if you do not want a "W" on your transcript, as drops after week two show as a "W".
+
+Source: admin_add_drop_deadline.txt
+
+BIOL 160 usually takes 9 to 11 hours a week (source: course_biol_160.txt and course_biol_160_workload.txt).
+
+About 120 pages of reading is assigned each week for HIST 118, according to course_hist_118.txt and course_hist_118_workload.txt.
+
+To avoid the longest wait at Pellew Dining Hall, you should go before 11:45 (from dining_pellew_dining_hall_followup.txt and dining_pellew_dining_hall.txt).
+```
+
+**Criterion 2 — every answer names a source.** The same five outputs above each
+name at least one source document. They were produced by
+`generate.py::answer_from_chunks` and recorded by `run_eval.py::write_report`.
+
+**Criterion 3 — the gate stops out-of-corpus questions.** This output was
+produced by `run_eval.py::check_out_of_scope`:
+
+```
+gate refused 5 of 5
+What is the capital of Mongolia? — refused
+How do I change the oil in a diesel engine? — refused
+Who won the 1994 World Cup? — refused
+What is the recommended dosage of ibuprofen for a headache? — refused
+How do I write a for loop in Rust? — refused
+```
+
+**Criterion 4 — sampled chunks preserve complete posts or paragraphs.** The
+following output was produced by `app.py::cmd_chunks`, which calls
+`chunker.py::split_documents`:
+
+```
+88 chunks total. Showing 5, spread across the corpus.
+Chunk 1: admin_add_drop_deadline.txt#0
+On the add/drop deadline You can add a course through the end of the second week. Dropping is a longer window — through the end of week six — but a drop after week two shows as a W on your transcript.
+Chunk 2: course_biol_160.txt#0
+BIOL 160 Cell Biology I lived here my sophomore year. Format is lecture three times a week with a weekly lab. Assessment: four unit tests and a cumulative final. Not curved. Expect 9 to 11 hours a week.
+Chunk 3: course_hist_118_workload.txt#0
+Workload for HIST 118 Modern World History People keep asking so: a lot of reading, about 120 pages a week, but no problem sets.
+Chunk 4: dining_pellew_dining_hall_followup.txt#0
+Re: Pellew Dining Hall Adding to what people have said about Pellew Dining Hall. The wait figure of 12 to 18 minutes at peak matches what I've seen. If you're trying to eat between classes, go before 11:45.
+Chunk 5: housing_innisfree_hall.txt#0
+Innisfree Hall — what it's actually like Transferred in last year, so take this with a grain of salt. Built 1991, renovated 2022. Rooms are doubles arranged as pairs sharing one bathroom between two rooms.
+```
+
+**Criterion 5 — named sources contain the supporting facts.** In the recorded
+answers, the housing, add/drop, BIOL 160, HIST 118, and Pellew citations match
+the documents containing those facts. This evidence was produced by
+`generate.py::answer_from_chunks` and recorded by `run_eval.py::write_report`.
 
 ## Verdicts
 
