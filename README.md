@@ -116,11 +116,21 @@ the short wing is much quieter.
      visible. Milestone 4. -->
 
 **Question:**
+How random is the housing lottery for juniors and seniors?
 
 **Answer:**
 
 ```
+According to admin_housing_lottery.txt, juniors and seniors are ordered by
+accumulated credit hours, with random selection used only to break ties. Rising
+sophomores receive a number drawn at random.
 ```
+
+**Source:** `admin_housing_lottery.txt`
+
+This answer is directly supported by the retrieved chunk. The live model call
+could not be run in this environment because `.env` does not contain a
+`GEMINI_API_KEY`.
 
 **My relevance cutoff:**
 
@@ -134,8 +144,23 @@ the short wing is much quieter.
      Milestone 4. -->
 
 | Question | In corpus? | Best distance |
-|---|---|---|
-|  |  |  |
+|---|---|---:|
+| How random is the housing lottery for juniors and seniors? | Yes | 0.132763 |
+| When should I drop a course if I do not want a W on my transcript? | Yes | 0.287928 |
+| How much time does BIOL 160 usually take each week? | Yes | 0.302796 |
+| How much reading is assigned for HIST 118 each week? | Yes | 0.316142 |
+| When should I go to Pellew Dining Hall to avoid the longest wait? | Yes | 0.188783 |
+| What is the capital of Mongolia? | No | 0.824593 |
+| How do I change the oil in a diesel engine? | No | 0.934011 |
+| Who won the 1994 World Cup? | No | 0.885860 |
+| What is the recommended dosage of ibuprofen for a headache? | No | 0.844232 |
+| How do I write a for loop in Rust? | No | 0.895998 |
+
+I set the cutoff to **0.55**. The in-scope questions ranged from 0.132763 to
+0.316142, while the out-of-scope questions ranged from 0.824593 to 0.934011,
+leaving a large gap between the groups. A cutoff below the nearest in-scope
+result would reject a question the corpus answers; a cutoff above 0.824593
+would allow the closest unrelated question through.
 
 ## How I Used AI
 
