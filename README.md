@@ -189,6 +189,13 @@ leaving the starter's 0.6 unexplained. I also tightened the grounding instructio
 to require every factual claim to be directly supported by a retrieved document,
 not inferred from general knowledge.
 
+**3.** I asked the assistant to inspect the three-run baseline answers for a
+repeated failure pattern. It found no missed criterion, but it did find that
+the generation stage cited valid sources in inconsistent formats such as
+`Source:`, `(source:)`, and `(from ...)`. I changed only the grounding prompt
+to require a separate `Source: filename.txt` line, then reviewed the 15 uncached
+after-run answers and confirmed that all 15 used the new format.
+
 <!-- ── Stretch features ─────────────────────────────────────────────────────
      Doing one? Say so here BEFORE you start. A feature this README never
      claims earns nothing.
@@ -395,9 +402,25 @@ although it did not increase the already passing criterion counts.
 
      Milestone 5. -->
 
+No acceptance criterion was missed after the fix, so there is no failed
+criterion to repair or explain stopping on. The remaining risk is coverage:
+the evaluation used five hand-picked in-corpus questions and five unrelated
+out-of-corpus questions, so it does not establish performance on paraphrases,
+multi-part questions, or borderline topics near the 0.55 cutoff. I stopped
+after one focused generation improvement because the requested experiment was
+to change one thing and measure it; changing retrieval or chunking too would
+make the before/after result harder to attribute.
+
 ## What I'd Do Differently
 
 <!-- Knowing what you know now — which of your five criteria would you write
      differently, and why?
 
      Milestone 5. -->
+
+I would rewrite Criterion 2 to measure both citation presence and citation
+format: “All 5 of 5 generated answers end with a separate `Source:
+filename.txt` line naming a supporting document.” The original criterion only
+checked that some source was named, so it passed even when the citation format
+was inconsistent. I would also add paraphrased and borderline questions to a
+future test set before treating the 5/5 result as broad system reliability.
